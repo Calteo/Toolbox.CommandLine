@@ -31,7 +31,4 @@
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="images\toolbox.png" />
-  </ItemGroup>
 </Project>
