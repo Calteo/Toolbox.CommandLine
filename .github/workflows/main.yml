@@ -1,4 +1,8 @@
-name: Toolbox.CommandLine
+#
+# Build the Toolbox Commandline and publish 
+#
+
+name: Toolbox CommandLine
 
 on:
   push:
