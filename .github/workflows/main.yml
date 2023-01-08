@@ -71,7 +71,7 @@ jobs:
     - name: Zip binaries
       uses: TheDoctor0/zip-release@0.6.2
       with:
-        filename: 'binary.zip'
+        filename: 'Toolbox.CommandLine.${{ env.BUILD_VERSION }}-binary.zip'
         directory: output
         path: Toolbox.CommandLine.dll
         type: 'zip'
@@ -83,7 +83,7 @@ jobs:
         name: Release ${{ env.BUILD_VERSION }}
         tag_name: ${{ env.BUILD_VERSION }}
         files: |
-          ./output/binary.zip
+          ./output/Toolbox.CommandLine.${{ env.BUILD_VERSION }}-binary.zip
           ./output/Toolbox.CommandLine.${{ env.BUILD_VERSION }}.nupkg      
 
     - name: Pulish NuGet
