@@ -32,10 +32,10 @@ jobs:
         dotnet-version: 6.0.x
 
     - name: Install NuGet
-      uses: NuGet/setup-nuget@v1.0.5
+      uses: NuGet/setup-nuget@v1.1.1
 
     - name: Install DocFX
-      uses: crazy-max/ghaction-chocolatey@v1
+      uses: crazy-max/ghaction-chocolatey@v2
       with:
         args: install docfx
 
@@ -43,7 +43,7 @@ jobs:
     #  run: echo "Version = ${{ env.BUILD_VERSION }}"
     
     - name: Version Visual Studio SDK projects
-      uses: roryprimrose/set-vs-sdk-project-version@v1.0.3
+      uses: roryprimrose/set-vs-sdk-project-version@v1.0.6
       with:
         version: "${{ env.BUILD_VERSION }}.0"
         assemblyVersion: "${{ env.BUILD_VERSION }}.0"
@@ -75,7 +75,7 @@ jobs:
 
     # create github release
     - name: Create Release
-      uses: actions/create-release@v1
+      uses: actions/create-release@v1.1.4
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
       id: create_release
@@ -84,7 +84,7 @@ jobs:
           release_name: Release ${{ env.BUILD_VERSION }}
 
     - name: Add zipped binaries
-      uses: actions/upload-release-asset@v1
+      uses: actions/upload-release-asset@v1.0.2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
