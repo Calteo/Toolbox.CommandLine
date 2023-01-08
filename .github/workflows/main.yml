@@ -11,7 +11,6 @@ env:
   BUILD_VERSION: "1.1.${{ github.run_number }}"
 
 jobs:
-
   build:
     name: Build
     runs-on: windows-latest  
@@ -75,33 +74,13 @@ jobs:
 
     # create github release
     - name: Create Release
-      uses: actions/create-release@v1.1.4
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
-      id: create_release
+      uses: softprops/action-gh-release@v1        
       with:
-          tag_name: ${{ env.BUILD_VERSION }}
-          release_name: Release ${{ env.BUILD_VERSION }}
-
-    - name: Add zipped binaries
-      uses: actions/upload-release-asset@v1.0.2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./output/binary.zip
-        asset_name: Toolbox-CommandLine-Binary-${{ env.BUILD_VERSION }}.zip
-        asset_content_type: application/zip
-
-    - name: Add nuget package
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./output/Toolbox.CommandLine.${{ env.BUILD_VERSION }}.nupkg
-        asset_name: Toolbox.CommandLine.${{ env.BUILD_VERSION }}.nupkg
-        asset_content_type: application/nuget
+        name: Release ${{ env.BUILD_VERSION }}
+        tag_name: ${{ env.BUILD_VERSION }}
+        files: |
+          ./output/binary.zip
+          ./output/Toolbox.CommandLine.${{ env.BUILD_VERSION }}.nupkg      
 
     - name: Pulish NuGet
       run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_TOKEN}}
