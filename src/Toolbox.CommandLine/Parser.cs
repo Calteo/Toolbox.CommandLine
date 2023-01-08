@@ -91,6 +91,20 @@ namespace Toolbox.CommandLine
             return new Parser(typeof(T1), typeof(T2));
         }
 
+        /// <summary>
+        /// Create a <see cref="Parser"/> for type T1, T2 and T3.
+        /// </summary>
+        /// <typeparam name="T1">A type containing the options</typeparam>
+        /// <typeparam name="T2">A type containing the options</typeparam>
+        /// <typeparam name="T3">A type containing the options</typeparam>
+        /// <returns>Initialized parser</returns>
+        /// <remarks>Both types must implement verbs.</remarks>
+        /// <see cref="VerbAttribute"/>
+        public static Parser Create<T1, T2, T3>() where T1 : new() where T2 : new() where T3 : new()
+        {
+            return new Parser(typeof(T1), typeof(T2), typeof(T3));
+        }
+
         public OptionType DefaultType { get; }
         /// <summary>
         /// Get the list of possible options.
@@ -199,7 +213,7 @@ namespace Toolbox.CommandLine
             if (assembly != null)
             {
                 version = assembly.GetName().Version.ToString();
-                executable = Path.GetFileName(assembly.Location);
+                executable = assembly.GetName().Name + ".exe";
 
                 var titleAttribute = assembly.GetCustomAttribute<AssemblyTitleAttribute>();
                 if (titleAttribute != null)
@@ -242,7 +256,7 @@ namespace Toolbox.CommandLine
 
                 collector.AppendLine("VERBS");
                 collector.Indent = 2;
-                foreach (var optionType in OptionTypes.Values)
+                foreach (var optionType in OptionTypes.Values.OrderBy(o => o.Verb))
                 {
                     collector.Append(optionType.Verb);
                     if (optionType.Description != "")

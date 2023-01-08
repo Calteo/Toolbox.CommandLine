@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Toolbox.CommandLine.Demo2": {
+      "commandName": "Project",
+      "commandLineArgs": "-?"
+    }
+  }
+}

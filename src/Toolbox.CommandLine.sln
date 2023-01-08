@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29709.97
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toolbox.CommandLine", "Toolbox.CommandLine\Toolbox.CommandLine.csproj", "{743D57DE-260F-4E1C-BD30-F20DEEFC7547}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toolbox.CommandLine.Test", "Toolbox.CommandLine.Test\Toolbox.CommandLine.Test.csproj", "{27D9CB18-77AC-47E4-82DD-2D735E7306BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toolbox.CommandLine.Test", "Toolbox.CommandLine.Test\Toolbox.CommandLine.Test.csproj", "{27D9CB18-77AC-47E4-82DD-2D735E7306BA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toolbox.CommandLine.Demo1", "Toolbox.CommandLine.Demo1\Toolbox.CommandLine.Demo1.csproj", "{658BCD76-76CF-42EB-8A29-99B263B3966D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toolbox.CommandLine.Demo2", "Toolbox.CommandLine.Demo2\Toolbox.CommandLine.Demo2.csproj", "{885CF717-88A2-4888-BCC5-9D53009D9561}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toolbox.CommandLine.Demo2", "Toolbox.CommandLine.Demo2\Toolbox.CommandLine.Demo2.csproj", "{885CF717-88A2-4888-BCC5-9D53009D9561}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

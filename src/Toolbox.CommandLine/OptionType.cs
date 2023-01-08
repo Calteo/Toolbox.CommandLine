@@ -165,13 +165,25 @@ namespace Toolbox.CommandLine
 
         internal string GetHelpText(StringCollector collector, string executable)
         {
-            var options = Options.Select(o => o.GetUsage(Parser.OptionChar));
+            var options = Options.OrderBy(o => o.Position ?? int.MaxValue).ThenBy(o => o.Name).ToArray();
+            
+            if (Verb != "" && Description != "")
+            {
+                collector.Indent = 2;
+                collector.Append(Description);
+                collector.AppendLine("");
+                collector.Indent = 0;
+                collector.AppendLine("");
+            }
 
             collector.AppendLine("SYNTAX");
             collector.Indent = 2;
             collector.Append(executable);
 
-            foreach (var option in options)
+            if (Verb != "")
+                collector.Append($"{Verb}");
+
+            foreach (var option in options.Select(o => o.GetUsage(Parser.OptionChar)))
             {
                 collector.Append(option);
             }
@@ -181,7 +193,7 @@ namespace Toolbox.CommandLine
             collector.AppendLine("");
             collector.AppendLine("OPTIONS");
             collector.Indent = 2;
-            foreach (var option in Options)
+            foreach (var option in options)
             {
                 collector.AppendLine(option.GetUsage(Parser.OptionChar));
                 if (option.Description != "")

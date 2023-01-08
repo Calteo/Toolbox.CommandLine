@@ -8,6 +8,6 @@ namespace Toolbox.CommandLine.Demo2
     {
         [Option("company"), Position(1), DefaultValue("myCompany")]
         [Description("The company of a person.")]
-        public string Company { get; set; }
+        public string? Company { get; set; }
     }
 }

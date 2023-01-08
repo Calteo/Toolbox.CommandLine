@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Toolbox.CommandLine.Demo2
+﻿namespace Toolbox.CommandLine.Demo2
 {
     class Program
     {
         static int Main(string[] args)
         {
-            var parser = Parser.Create<DemoAddOptions, DemoRemoveOptions>();
+            var parser = Parser.Create<DemoAddOptions, DemoRemoveOptions, DefaultOptions>();
             var result = parser.Parse(args)
                 .OnError(r =>
                 {
@@ -19,7 +13,7 @@ namespace Toolbox.CommandLine.Demo2
                 })
                 .OnHelp(r =>
                 {
-                    Console.WriteLine(parser.GetHelpText(r.Verb));
+                    Console.WriteLine(parser.GetHelpText(r.Verb, Console.WindowWidth));
                     return -1;
                 })
                 .On<DemoAddOptions>(o =>

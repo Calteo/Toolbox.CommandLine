@@ -1,12 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Authors>Calteo</Authors>
-    <Company>Calteo</Company>
-    <Description>Demonstration programm for the Toolbox.CommandLine package.</Description>
-    <Copyright>Copyright © Calteo 2020</Copyright>
-    <OutputType>Exe</OutputType>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Authors>Calteo</Authors>
+		<Company>Calteo</Company>
+		<Description>Demonstration programm for the Toolbox.CommandLine package.</Description>
+		<Copyright>Copyright © Calteo 2020</Copyright>
+		<OutputType>Exe</OutputType>
+		<IsPublishable>False</IsPublishable>
+	</PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>

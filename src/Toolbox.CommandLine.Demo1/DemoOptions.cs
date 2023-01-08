@@ -6,11 +6,11 @@ namespace Toolbox.CommandLine.Demo1
     {
         [Option("name"), Mandatory, Position(0)]
         [Description("The name of a person.")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Option("company"), Position(1), DefaultValue("myCompany")]
         [Description("The company of a person.")]
-        public string Company { get; set; }
+        public string? Company { get; set; }
 
         [Option("number")]
         [Description("Some number")]
