@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace Toolbox.CommandLine.Test
 {
     [Verb("add")]
+    [Description("some option for adding")]
     class VerbAddOption
     {
         [Option("n")]

@@ -8,6 +8,13 @@ namespace Toolbox.CommandLine.Test
     public class VerbTest
     {
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void DuplicateVerbs()
+        {
+            Parser.Create<VerbAddOption, VerbAddOption>();
+        }
+
+        [TestMethod]
         public void ParseAddVerb()
         {
             var cut = Parser.Create<VerbAddOption, VerbListOption>();
@@ -18,6 +25,7 @@ namespace Toolbox.CommandLine.Test
 
             var result = cut.Parse(args);
 
+            Assert.IsNull(cut.DefaultType);
             Assert.AreEqual(State.Succeeded, result.State);
             Assert.IsInstanceOfType(result.Option, typeof(VerbAddOption));
             Assert.AreEqual(name, ((VerbAddOption)result.Option).Name);
@@ -32,6 +40,7 @@ namespace Toolbox.CommandLine.Test
 
             var result = cut.Parse(args);
 
+            Assert.IsNull(cut.DefaultType);
             Assert.AreEqual(State.Succeeded, result.State);
             Assert.IsInstanceOfType(result.Option, typeof(VerbListOption));
             Assert.IsTrue(((VerbListOption)result.Option).Active);
@@ -79,6 +88,7 @@ namespace Toolbox.CommandLine.Test
 
             var result = cut.Parse(args);
 
+            Assert.IsNull(cut.DefaultType);
             Assert.AreEqual(State.Succeeded, result.State);
             Assert.IsInstanceOfType(result.Option, typeof(VerbAddOption));
             Assert.AreEqual("add", result.Verb);
@@ -101,6 +111,7 @@ namespace Toolbox.CommandLine.Test
 
             var result = cut.Parse(args);
 
+            Assert.IsNull(cut.DefaultType);
             Assert.AreEqual(State.Succeeded, result.State);
             Assert.IsInstanceOfType(result.Option, typeof(VerbAddOption));
             Assert.AreEqual("remove", result.Verb);

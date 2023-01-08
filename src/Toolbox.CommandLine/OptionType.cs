@@ -21,7 +21,7 @@ namespace Toolbox.CommandLine
         {
             Parser = parser;
             Type = type;
-            Verb = verb ?? type.GetCustomAttribute<VerbAttribute>(true)?.Verb;
+            Verb = verb ?? type.GetCustomAttribute<VerbAttribute>(true)?.Verb ?? "";
 
             var properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
                             .Where(p => p.GetCustomAttribute<OptionAttribute>() != null && p.CanWrite);
