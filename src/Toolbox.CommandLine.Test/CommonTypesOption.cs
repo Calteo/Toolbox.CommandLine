@@ -21,6 +21,7 @@ namespace Toolbox.CommandLine.Test
         public DateTime Date { get; set; }
 
         [Option("timespan")]
+        [DefaultValue("30")]
         public TimeSpan TimeSpan { get; set; }
 
         [Option("now")]

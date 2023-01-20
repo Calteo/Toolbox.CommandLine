@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace Toolbox.CommandLine
 {
@@ -105,8 +106,20 @@ namespace Toolbox.CommandLine
 
         internal void SetDefault(object option)
         {
-            if (DefaultValue != null)
-                Property.SetValue(option, DefaultValue.Value);
+            if (DefaultValue!=null && DefaultValue.Value!=null)
+            {
+                if (Property.PropertyType.IsAssignableFrom(DefaultValue.Value.GetType()))
+                {
+                    Property.SetValue(option, DefaultValue.Value);
+                }
+                else
+                {
+                    var converter = TypeDescriptor.GetConverter(Property.PropertyType);
+                    var obj = converter.ConvertFrom(DefaultValue.Value);
+
+                    Property.SetValue(option, obj);
+                }
+            }
         }
 
         internal void SetSwitch(object option)
