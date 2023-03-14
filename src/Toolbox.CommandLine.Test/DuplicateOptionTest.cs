@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Toolbox.CommandLine.Test
@@ -12,7 +10,7 @@ namespace Toolbox.CommandLine.Test
         [ExpectedException(typeof(ArgumentException))]
         public void ThrowOnDuplicateOption()
         {
-            new Parser(typeof(DuplicateOption));
+            var _ = new Parser(typeof(DuplicateOption));
 
             Assert.Fail("no exception");
         }

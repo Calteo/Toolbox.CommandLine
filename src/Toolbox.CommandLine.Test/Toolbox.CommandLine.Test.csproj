@@ -1,13 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Authors>Calteo</Authors>
     <Product>Toolbox.CommandLine</Product>
     <Description>Tests for the Toolbox.CommandLine</Description>
+	  <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
+	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+	  <PackageReference Include="MSTest.TestAdapter" Version="3.0.2" />
+	  <PackageReference Include="MSTest.TestFramework" Version="3.0.2" />
+	  <PackageReference Include="coverlet.collector" Version="3.2.0">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Toolbox.CommandLine\Toolbox.CommandLine.csproj" />

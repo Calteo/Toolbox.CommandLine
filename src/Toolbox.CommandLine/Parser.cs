@@ -79,6 +79,20 @@ namespace Toolbox.CommandLine
         }
 
         /// <summary>
+        /// Create a parser from all options with <see cref="VerbAttribute"/>
+        /// </summary>
+        /// <typeparam name="T">The assemlby of the type will be scanned for option classes</typeparam>
+        /// <returns></returns>
+        public static Parser CreateFrom<T>()
+        {
+            var types = typeof(T).Assembly.GetTypes()
+                .Where(t => t.GetCustomAttribute<VerbAttribute>() != null)
+                .ToArray();
+
+            return new Parser(types);
+        }
+
+        /// <summary>
         /// Create a <see cref="Parser"/> for type T1 and T2.
         /// </summary>
         /// <typeparam name="T1">A type containing the options</typeparam>
