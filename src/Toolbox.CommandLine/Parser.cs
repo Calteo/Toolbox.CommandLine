@@ -148,8 +148,8 @@ namespace Toolbox.CommandLine
         {
             if (arg == "") return false;
             if (arg[0] != OptionChar) return false;
-            var name = arg.Substring(1);
-            return HelpOptions.Contains(name);
+
+            return HelpOptions.Contains(arg[1..]);
         }
 
         /// <summary>

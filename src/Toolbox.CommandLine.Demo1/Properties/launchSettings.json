@@ -1,8 +1,20 @@
 {
   "profiles": {
-    "Toolbox.CommandLine.Demo1": {
+    "Help  with -?": {
       "commandName": "Project",
       "commandLineArgs": "-?"
+    },
+    "Name": {
+      "commandName": "Project",
+      "commandLineArgs": "-name Joe"
+    },
+    "Name in position": {
+      "commandName": "Project",
+      "commandLineArgs": "Joe"
+    },
+    "Bad options": {
+      "commandName": "Project",
+      "commandLineArgs": "Joe -bad"
     }
   }
 }
