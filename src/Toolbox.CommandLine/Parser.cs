@@ -262,23 +262,26 @@ namespace Toolbox.CommandLine
             {
                 DefaultType?.GetHelpText(collector, executable);
 
-                collector.AppendLine("SYNTAX");
-                collector.Indent = 2;
-                collector.AppendLine($"{executable} <verb> <options>");
-                collector.AppendLine("");
-                collector.Indent = 0;
-
-                collector.AppendLine("VERBS");
-                collector.Indent = 2;
-                foreach (var optionType in OptionTypes.Values.OrderBy(o => o.Verb))
+                if (OptionTypes.Keys.Any(k => k != ""))
                 {
-                    collector.Append(optionType.Verb);
-                    if (optionType.Description != "")
-                        collector.AppendLine($"- {optionType.Description}");
-                    else
-                        collector.AppendLine("");
+                    collector.AppendLine("SYNTAX");
+                    collector.Indent = 2;
+                    collector.AppendLine($"{executable} <verb> <options>");
+                    collector.AppendLine("");
+                    collector.Indent = 0;
+
+                    collector.AppendLine("VERBS");
+                    collector.Indent = 2;
+                    foreach (var optionType in OptionTypes.Values.OrderBy(o => o.Verb))
+                    {
+                        collector.Append(optionType.Verb);
+                        if (optionType.Description != "")
+                            collector.AppendLine($"- {optionType.Description}");
+                        else
+                            collector.AppendLine("");
+                    }
+                    collector.Indent = 0;
                 }
-                collector.Indent = 0;
             }
 
             return collector.ToString();
