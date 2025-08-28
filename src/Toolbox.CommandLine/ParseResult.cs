@@ -97,14 +97,27 @@ namespace Toolbox.CommandLine
             return this;
         }
 
+		/// <summary>
+		/// Handler for a general option type.
+		/// </summary>
+		/// <param name="handler">Function to call</param>
+		/// <returns></returns>
+		public ParseResult On(Func<object, int> handler)
+        {
+			if (State == State.Succeeded)
+			{
+				Return = handler(Option);
+			}
+			return this;
+		}
 
-        /// <summary>
-        /// Handler for a help request.
-        /// </summary>
-        /// <param name="handler">Function to call for doing the help</param>
-        /// <returns></returns>
-        /// <see cref="State.RequestHelp"/>
-        public ParseResult OnHelp(Func<ParseResult, int> handler)
+		/// <summary>
+		/// Handler for a help request.
+		/// </summary>
+		/// <param name="handler">Function to call for doing the help</param>
+		/// <returns></returns>
+		/// <see cref="State.RequestHelp"/>
+		public ParseResult OnHelp(Func<ParseResult, int> handler)
         {
             if (State == State.RequestHelp)
             {

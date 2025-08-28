@@ -1,54 +1,100 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Toolbox.CommandLine
 {
     /// <summary>
-    /// Execute a programm on a <see cref="Console"/> and handle options automatically.
+    /// General console program with options
     /// </summary>
-    /// <remarks>
-    /// The help option will create a return code of 1, an error will return 2 and an <see cref="Exception"/> will return 3.
-    /// </remarks>
-    public class ConsoleProgram
+    public class ConsoleProgramCore
     {
-        public static int Run<T>(string[] args, Func<T, int> mainAction) where T : class, new()
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ConsoleProgramCore"/> class.
+		/// </summary>
+		/// <param name="optionTypes"></param>
+		/// <exception cref="ArgumentNullException"></exception>
+		/// <exception cref="ArgumentException"></exception>
+		public ConsoleProgramCore(params Type[] optionTypes)
+        {            
+            if (optionTypes== null) throw new ArgumentNullException(nameof(optionTypes));
+            if (optionTypes.Length == 0) throw new ArgumentException("No types given for options.", nameof(optionTypes));
+
+            OptionTypes = optionTypes;
+        }
+
+        private Type[] OptionTypes { get; }
+		private Dictionary<Type, Func<object, int>> OptionHandlers { get; } = new Dictionary<Type, Func<object, int>>();
+
+		protected void AddHandler<T>(Func<T, int> handler)
+		{
+            if (!OptionTypes.Contains(typeof(T))) throw new ArgumentException($"Handler for type {typeof(T).FullName} is not an option type.");
+            if (OptionHandlers.ContainsKey(typeof(T))) throw new ArgumentException($"Handler for type {typeof(T).FullName} already registed.", nameof(handler));
+
+            OptionHandlers.Add(typeof(T), o => handler((T)o));
+		}
+
+		public int Run(string[] args)
         {
-            try
+			try
+			{
+				var parser = new Parser(OptionTypes);
+				var result = parser.Parse(args);
+
+				return result
+						.OnError(ExecuteError)
+						.OnHelp(ExecuteHelp)
+						.On(ExecuteRun)
+						.Return;
+			}
+			catch (Exception exception)
+			{
+				ConsoleColor.Red.WriteLine($"exception: {exception.Message}");
+				return 3;
+			}
+		}
+
+		private int ExecuteRun(object option)
+		{
+            if (OptionHandlers.TryGetValue(option.GetType(), out var handler))
             {
-                var parser = Parser.Create<T>();
-                var result = parser.Parse(args);
-
-                return result
-                        .OnError(ExecuteError)
-                        .OnHelp(ExecuteHelp)
-                        .On(mainAction)
-                        .Return;
+                return handler(option);
             }
-            catch (Exception exception)
-            {                
-                Console.WriteLine(exception.Message);
-                return 3;
-            }
+            return Execute(option);
         }
 
-        private static int ExecuteHelp(ParseResult result)
+        protected int Execute(object option)
         {
-            var width = Console.WindowWidth;
-            if (width == 0) width = 80;
+            return 0;
+        }
 
-            Console.WriteLine(result.GetHelpText(width));
+		protected virtual int ExecuteHelp(ParseResult result)
+		{
+            Console.WriteLine(result.GetHelpText(Console.WindowWidth));
             return 1;
+		}
+
+		protected virtual int ExecuteError(ParseResult result)
+		{
+            ConsoleColor.Red.WriteLine(result.Text);
+            return 2;
+		}
+	}
+
+	/// <summary>
+	/// Execute a programm on a <see cref="Console"/> and handle options automatically.
+	/// </summary>
+	/// <remarks>
+	/// The help option will create a return code of 1, an error will return 2 and an <see cref="Exception"/> will return 3.
+	/// </remarks>
+	public abstract class ConsoleProgram<T> : ConsoleProgramCore
+	{
+        public ConsoleProgram()
+			: base(typeof(T))
+        {
+			AddHandler<T>(Execute);
         }
 
-        private static int ExecuteError(ParseResult result)
-        {
-            Console.WriteLine(result.Text); 
-            return 2;
-        }
+		protected abstract int Execute(T options);
     }
 }
