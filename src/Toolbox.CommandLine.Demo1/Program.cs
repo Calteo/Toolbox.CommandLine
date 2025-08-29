@@ -1,7 +1,4 @@
-﻿using System;
-using System.Net.Http.Headers;
-
-namespace Toolbox.CommandLine.Demo1
+﻿namespace Toolbox.CommandLine.Demo1
 {
     class Program : ConsoleProgram<DemoOptions>
     {
